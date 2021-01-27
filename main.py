@@ -6,12 +6,15 @@ from modules import asteroide
 pygame.init()
 pantalla_x = 600
 pantalla_y = 400
+clock = pygame.time.Clock()
+fps = 15
+grados = 0
 pygame.display.set_caption('ASTERMINATOR')
 size =(pantalla_x,pantalla_y)
 screen = pygame.display.set_mode(size)
 
 background = pygame.image.load('img//background_tierra.jpg').convert()
-objnave = nave.Nave((pantalla_x//2,pantalla_y//2))
+objnave = nave.Nave((0,pantalla_y//2-25))
 objasteroide = asteroide.Asteroide((pantalla_x - 80,0))
 
 while True:
@@ -22,5 +25,11 @@ while True:
 
     screen.blit(background,[0,0])
     screen.blit(objnave.image,objnave.rect)
-    screen.blit(objasteroide.image,objasteroide.rect)
+    rotar = pygame.transform.rotate(objasteroide.image,grados)
+    grados += 5
+    if grados > 360:
+        grados = 0
+    #screen.blit(objasteroide.image,objasteroide.rect)
+    #objasteroide.rotar()
     pygame.display.flip()
+    clock.tick(fps)
