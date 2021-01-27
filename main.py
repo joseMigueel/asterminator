@@ -8,5 +8,5 @@ pantalla_x = 600
 pantalla_y = 400
 pygame.display.set_caption('ASTERMINATOR')
 size =(pantalla_x,pantalla_y)
-
+screen = pygame.display.set_mode(size)
 pygame.display.flip()
