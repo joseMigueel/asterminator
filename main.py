@@ -29,6 +29,7 @@ while True:
     grados += 5
     if grados > 360:
         grados = 0
+    screen.blit(rotar,objasteroide.rect)
     #screen.blit(objasteroide.image,objasteroide.rect)
     #objasteroide.rotar()
     pygame.display.flip()
