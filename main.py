@@ -19,6 +19,8 @@ objasteroide = asteroide.Asteroide((pantalla_x - 80,0))
 cantidad = 5
 arrgobj = []
 ban = False
+puntos = 5
+vidas = 3
 for x in range(cantidad):
     objasteroide = asteroide.Asteroide((pantalla_x - 80,random.randint(1,300)))
     arrgobj.append(objasteroide)
@@ -47,6 +49,8 @@ while True:
         if objnave.rect.colliderect(x.rect):
             x.rect.x -= pantalla_x - 80
             screen.blit(objnave.bumimage,objnave.rect)
+            vidas -= 1 
+            print(vidas)
 
     if ban:
         screen.blit(objnave.misilimage,objnave.misilrect)
@@ -55,7 +59,10 @@ while True:
             if objnave.misilrect.colliderect(x.rect):
                 arrgobj.remove(x)
                 objnave.misilrect.x = pantalla_x + 10
-
+                puntos += 5
+                obj = asteroide.Asteroide((pantalla_x - 80,random.randint(1,300)))
+                arrgobj.append(obj)
+                fps += 1
     if rectangulo != 0:
         objnave.misilrect.center = rectangulo.center
         ban = True
