@@ -31,6 +31,7 @@ while True:
 
     screen.blit(background,[0,0])
     screen.blit(objnave.image,objnave.rect)
+    print(rectangulo)
     for x in arrgobj:
         rotar = pygame.transform.rotate(x.image,grados)
         screen.blit(rotar,x.rect)
@@ -41,9 +42,19 @@ while True:
             x.rect.y = random.randint(1,300)
         if grados > 360:
             grados = 0
+
+    for x in arrgobj:
+        if objnave.rect.colliderect(x.rect):
+            x.rect.x -= pantalla_x - 80
+            screen.blit(objnave.bumimage,objnave.rect)
+
     if ban:
         screen.blit(objnave.misilimage,objnave.misilrect)
         objnave.misilrect.x += 10
+        for x in arrgobj:
+            if objnave.misilrect.colliderect(x.rect):
+                arrgobj.remove(x)
+                objnave.misilrect.x = pantalla_x + 10
 
     if rectangulo != 0:
         objnave.misilrect.center = rectangulo.center

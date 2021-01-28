@@ -15,6 +15,9 @@ class Nave():
         self.misil = pygame.image.load('img/misil.png')
         self.misilimage = self.misil.subsurface(self.misil.get_clip())
         self.misilrect = self.misilimage.get_rect()
+        self.sheetbum = pygame.image.load('img/bum.png')
+        self.bumimage = self.sheetbum.subsurface(self.sheetbum.get_clip())
+        self.bumrect = self.bumimage.get_rect()
 
     def disparar(self):
         self.respuesta = self.rect
@@ -29,11 +32,11 @@ class Nave():
         if direccion == 'down':
             self.rect.y += 5
         self.image == self.sheet.subsurface(self.sheet.get_clip())
-    
+
     def manejador_eventos(self, event):
         if event.type == pygame.KEYUP:
-            if event.type == pygame.K_SPACE:
-                self.ban = True
+            if event.key == pygame.K_SPACE:
+                self.ban = False
                 self.respuesta = 0
             
 
