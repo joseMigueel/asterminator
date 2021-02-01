@@ -41,13 +41,13 @@ class Nave():
             
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
+            if event.key == pygame.K_LEFT or event.key == ord('a'):
                 self.update('left')
-            if event.key == pygame.K_RIGHT:
+            if event.key == pygame.K_RIGHT or event.key == ord('d'):
                 self.update('right')
-            if event.key == pygame.K_UP:
+            if event.key == pygame.K_UP or event.key == ord('w'):
                 self.update('up')
-            if event.key == pygame.K_DOWN:
+            if event.key == pygame.K_DOWN or event.key == ord('s'):
                 self.update('down')
             if event.key == pygame.K_SPACE:
                 self.ban = True
