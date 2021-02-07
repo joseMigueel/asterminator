@@ -24,9 +24,11 @@ vidas = 3
 color_blanco = (255,255,255)
 font = pygame.font.Font(None,30)
 screen_rect = screen.get_rect()
-pygame.mixer.music.load('music/juego_de_tronos.ogg')
+pygame.mixer.music.load('music/background.ogg')
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(.3)
+sonido_perdiste = pygame.mixer.Sound('music/perdiste.ogg')
+sonido_colision = pygame.mixer.Sound('music/explosion.ogg')
 
 def proceso_principal(cantidad,vidas,puntos,grados,ban,fps):
 
@@ -67,8 +69,9 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps):
                     x.rect.x -= pantalla_x - 80
                     screen.blit(objnave.bumimage,objnave.rect)
                     vidas -= 1 
-                    print(vidas)
-
+                    print(vidas)               
+                    sonido_colision.play()
+                    
             if ban:
                 screen.blit(objnave.misilimage,objnave.misilrect)
                 objnave.misilrect.x += 10
@@ -88,7 +91,7 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps):
             texto_final_rect = texto_final.get_rect()
             texto_final_rect.center = screen_rect.center
             screen.blit(texto_final,texto_final_rect)
-
+            sonido_perdiste.play()
         #screen.blit(objasteroide.image,objasteroide.rect)
         #objasteroide.rotar()
         pygame.display.flip()

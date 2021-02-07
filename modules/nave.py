@@ -20,10 +20,14 @@ class Nave():
         self.sheetbum = pygame.image.load('img/bum.png')
         self.bumimage = self.sheetbum.subsurface(self.sheetbum.get_clip())
         self.bumrect = self.bumimage.get_rect()
+        self.sonido_misil = pygame.mixer.Sound('music/misil.ogg')
+        
 
     def disparar(self):
         self.respuesta = self.rect
-    
+        self.sonido_misil.play()
+
+
     def update(self,direccion):
         if (direccion == 'left') and (self.rect.x > 0): 
             self.rect.x -= 5
@@ -37,7 +41,7 @@ class Nave():
         self.image == self.sheet.subsurface(self.sheet.get_clip())
         print('Nave position:')
         print(self.rect.x,self.rect.y)
-
+        
     def manejador_eventos(self, event):
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_SPACE:
