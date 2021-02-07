@@ -24,6 +24,9 @@ vidas = 3
 color_blanco = (255,255,255)
 font = pygame.font.Font(None,30)
 screen_rect = screen.get_rect()
+pygame.mixer.music.load('music/juego_de_tronos.ogg')
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(.3)
 
 def proceso_principal(cantidad,vidas,puntos,grados,ban,fps):
 
