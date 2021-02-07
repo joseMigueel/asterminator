@@ -14,7 +14,7 @@ pygame.display.set_caption('ASTERMINATOR')
 size =(pantalla_x,pantalla_y)
 screen = pygame.display.set_mode(size)
 background = pygame.image.load('img//background_tierra.jpg').convert()
-objnave = nave.Nave((0,pantalla_y//2-25))
+objnave = nave.Nave(position =(0,pantalla_y//2-25),border_limits=size)
 objasteroide = asteroide.Asteroide((pantalla_x - 80,0))
 cantidad = 5
 arrgobj = []

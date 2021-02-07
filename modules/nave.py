@@ -2,8 +2,10 @@ import pygame
 
 class Nave():
 
-    def __init__(self,position):
+    def __init__(self,position,border_limits):
 
+        self.limit_x,self.limit_y = border_limits
+        self.nave_size_x,self.nave_size_y = 90, 51
         self.sheet = pygame.image.load('img/nave.png')
 
         self.image = self.sheet.subsurface(self.sheet.get_clip())
@@ -23,15 +25,18 @@ class Nave():
         self.respuesta = self.rect
     
     def update(self,direccion):
-        if direccion == 'left':
+        if (direccion == 'left') and (self.rect.x > 0): 
             self.rect.x -= 5
-        if direccion == 'right':
+        if (direccion == 'right') and (self.rect.x < (self.limit_x- self.nave_size_x)):
             self.rect.x += 5
-        if direccion == 'up':
+        if (direccion == 'up') and (self.rect.y > 0):
             self.rect.y -= 5
-        if direccion == 'down':
+        if (direccion == 'down') and (self.rect.y < (self.limit_y - self.nave_size_y)):
             self.rect.y += 5
+            
         self.image == self.sheet.subsurface(self.sheet.get_clip())
+        print('Nave position:')
+        print(self.rect.x,self.rect.y)
 
     def manejador_eventos(self, event):
         if event.type == pygame.KEYUP:
