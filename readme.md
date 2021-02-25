@@ -26,7 +26,7 @@ pip install -r requirements.txt
 ```
 ### Empezar el juego
 Para iniciar el juego escriberemos en la terminal
-```
+```bash
 python main.py
 ```
 ### Objetivo del juego e instrucciones

@@ -5,7 +5,7 @@ from modules import asteroide
 from modules import juego
 import random
 
-pygame.init()
+
 
 
 fps = 15
