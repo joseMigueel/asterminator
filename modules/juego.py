@@ -3,6 +3,7 @@ import sys
 from modules import nave
 from modules import asteroide
 from modules import base_de_datos
+from modules import planeta
 import random
 import pygame_menu
 
@@ -17,8 +18,11 @@ size =(pantalla_x,pantalla_y)
 screen = pygame.display.set_mode(size)
 background = pygame.image.load('img//background_tierra.jpg').convert()
 background2 = pygame.image.load('img//background_espacio.jpg').convert()
+background3 = pygame.image.load('img//youwin.jpg').convert()
+#planeta = pygame.image.load('img//background_planeta2.png').convert()
 objnave = nave.Nave(position =(0,pantalla_y//2-25),border_limits=size)
 objasteroide = asteroide.Asteroide((pantalla_x - 80,0))
+objplaneta = planeta.Planeta((600,50))
 cantidad = 5
 arrgobj = []
 ban = False
@@ -51,8 +55,11 @@ def start_game():
     bscreen = pygame.display.set_mode(size)
     background = pygame.image.load('img//background_tierra.jpg').convert()
     background2 = pygame.image.load('img//background_espacio.jpg').convert()
+    background3 = pygame.image.load('img//youwin.jpg').convert()
+    #planeta = pygame.image.load('img//background_planeta2.png').convert()
     objnave = nave.Nave(position =(0,pantalla_y//2-25),border_limits=size)
     objasteroide = asteroide.Asteroide((pantalla_x - 80,0))
+    objplaneta = planeta.Planeta((600,50))
     cantidad = 5
     arrgobj = []
     ban = False
@@ -124,13 +131,32 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps):
         else:
             screen.blit(background,[0,0])
 
-        if puntos > 100:
-            objnave.rect.x += 3
-            arrgobj.clear()
+        if objnave.grados > 85:
+            screen.blit(background3,[0,0])
 
+        if puntos > 100:
+            objnave.rect.y = pantalla_y//2-25
+            arrgobj.clear()
+            screen.blit(objplaneta.image,objplaneta.rect)
+            if objplaneta.rect.x > 400:
+                objplaneta.rect.x -= 3
+        
+            if objnave.rect.x < 400:
+                objnave.rect.x += 3
+            else:
+                objnave.rect.y = pantalla_y//2 - 75
+                rotar = pygame.transform.rotate(objnave.image,objnave.grados)
+                screen.blit(rotar,objnave.rect)
+                if objnave.grados < 90:
+                    objnave.grados += 5
+                else:
+                    screen.blit(background3,[0,0])
+                #objnave.rotar()
         
         if vidas > 0:
-            screen.blit(objnave.image,objnave.rect)
+
+            if objnave.rect.x < 400:
+                screen.blit(objnave.image,objnave.rect)
             texto_marcador = font.render('Vidas:'+str(vidas)+' Puntos:'+str(puntos),True,color_blanco)
             texto_marcador_rect = texto_marcador.get_rect()
             texto_marcador_rect.center = screen_rect.center
@@ -179,7 +205,7 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps):
             sonido_perdiste.set_volume(.1)
             sonido_perdiste.play(loops= 1)
             sonido_inicio.stop()
-            #menu.mainloop(screen)
+            menu.mainloop(screen)
             
         #screen.blit(objasteroide.image,objasteroide.rect)
         #objasteroide.rotar()
