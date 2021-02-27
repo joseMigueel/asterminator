@@ -21,7 +21,7 @@ class Nave():
         self.bumimage = self.sheetbum.subsurface(self.sheetbum.get_clip())
         self.bumrect = self.bumimage.get_rect()
         self.sonido_misil = pygame.mixer.Sound('music/misil2.ogg')
-        
+        self.grados = 0
 
     def disparar(self):
         self.respuesta = self.rect
@@ -70,3 +70,11 @@ class Nave():
                 self.disparar()
 
         return(self.respuesta)
+
+    def rotar(self):
+
+        self.image = pygame.transform.rotate(self.image,self.grados)
+        self.rect = self.image.get_rect()
+        self.grados += 5
+        #if self.grados > 360:
+        #    self.grados = 0
