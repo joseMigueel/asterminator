@@ -30,10 +30,10 @@ class Nave():
 
 
     def update(self,direccion):
-        if (direccion == 'left') and (self.rect.x > 0): 
-            self.rect.x -= 5
-        if (direccion == 'right') and (self.rect.x < (self.limit_x- self.nave_size_x)):
-            self.rect.x += 5
+        #if (direccion == 'left') and (self.rect.x > 0): 
+            #self.rect.x -= 5
+        #if (direccion == 'right') and (self.rect.x < (self.limit_x- self.nave_size_x)):
+            #self.rect.x += 5
         if (direccion == 'up') and (self.rect.y > 0):
             self.rect.y -= 5
         if (direccion == 'down') and (self.rect.y < (self.limit_y - self.nave_size_y)):
