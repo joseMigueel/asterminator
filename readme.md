@@ -35,7 +35,8 @@ Instrucciones:
 - _Disparar misil_:  `ctrl` + `space`
 - _Movimiento_: puedes mover con las flechas o con `w`,`a`,`s`,`d` presionando `crtl`
 ### Pre-requisitos :
-Es necesario tener uns instalación de python3.
+- Es necesario tener uns instalación de python3.
+- El juego ha sido desarrollado en una maquina con Linux (ubuntu 20.04)
 ## Autores :
 
 * **Jose Miguel Marrero Marrero** - *Estudiante del bootcamp* - [github personal](https://github.com/joseMigueel)

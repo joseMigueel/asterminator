@@ -16,6 +16,7 @@ pygame.display.set_caption('ASTERMINATOR')
 size =(pantalla_x,pantalla_y)
 screen = pygame.display.set_mode(size)
 background = pygame.image.load('img//background_tierra.jpg').convert()
+background2 = pygame.image.load('img//background_espacio.jpg').convert()
 objnave = nave.Nave(position =(0,pantalla_y//2-25),border_limits=size)
 objasteroide = asteroide.Asteroide((pantalla_x - 80,0))
 cantidad = 5
@@ -49,6 +50,7 @@ def start_game():
     size =(pantalla_x,pantalla_y)   
     bscreen = pygame.display.set_mode(size)
     background = pygame.image.load('img//background_tierra.jpg').convert()
+    background2 = pygame.image.load('img//background_espacio.jpg').convert()
     objnave = nave.Nave(position =(0,pantalla_y//2-25),border_limits=size)
     objasteroide = asteroide.Asteroide((pantalla_x - 80,0))
     cantidad = 5
@@ -95,8 +97,10 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 db = base_de_datos.DB()
-                print('INSERT INTO puntuaciones(puntuacion, fecha)VALUES(1,now())')
-                db.insert_score('INSERT INTO puntuacion(puntuacion, fecha)VALUES('+str(puntos)+',now())')
+                print('INSERT INTO puntuacion(puntuacion, fecha)VALUES(1,now())')
+                #self.cur.execute('create table puntuaciones(id,puntos,nombre)')
+                datos = (puntos, 'jugador1')
+                db.insert_score(datos)
                 vidas = 3
                 puntos = 0
                 sonido_perdiste.stop()
@@ -115,7 +119,15 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps):
 
         rectangulo = objnave.manejador_eventos(event)
 
-        screen.blit(background,[0,0])
+        if puntos > 25: 
+            screen.blit(background2,[0,0])
+        else:
+            screen.blit(background,[0,0])
+
+        if puntos > 100:
+            objnave.rect.x += 3
+            arrgobj.clear()
+
         
         if vidas > 0:
             screen.blit(objnave.image,objnave.rect)
@@ -167,7 +179,7 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps):
             sonido_perdiste.set_volume(.1)
             sonido_perdiste.play(loops= 1)
             sonido_inicio.stop()
-            menu.mainloop(screen)
+            #menu.mainloop(screen)
             
         #screen.blit(objasteroide.image,objasteroide.rect)
         #objasteroide.rotar()
