@@ -27,6 +27,7 @@ cantidad = 5
 arrgobj = []
 ban = False
 puntos = 5
+nivel = 1
 vidas = 3
 color_blanco = (255,255,255)
 font = pygame.font.Font(None,30)
@@ -64,6 +65,7 @@ def start_game():
     arrgobj = []
     ban = False
     puntos = 5
+    nivel = 1
     vidas = 3
     color_blanco = (255,255,255)
     font = pygame.font.Font(None,30)
@@ -74,7 +76,7 @@ def start_game():
     sonido_inicio = pygame.mixer.Sound('music/background.ogg')
     sonido_perdiste = pygame.mixer.Sound('music/perdiste.ogg')
     sonido_colision = pygame.mixer.Sound('music/explosion.ogg')
-    proceso_principal(0,3,5,0,False,15)
+    #proceso_principal(0,3,5,0,False,15)
 
 
 tema = pygame_menu.themes.THEME_GREEN
@@ -87,7 +89,7 @@ menu.add_button('salir',pygame_menu.events.EXIT)
 
 
 
-def proceso_principal(cantidad,vidas,puntos,grados,ban,fps):
+def proceso_principal(cantidad,vidas,puntos,grados,ban,fps,nivel):
 
 
     
@@ -102,7 +104,11 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+
+            
             if event.type == pygame.MOUSEBUTTONDOWN:
+                if pantalla_x/2 <= mouse[0] <= pantalla_x/2+240 and pantalla_y/2 <= mouse[1] <= pantalla_y/2+40:
+                    import menu
                 db = base_de_datos.DB()
                 print('INSERT INTO puntuacion(puntuacion, fecha)VALUES(1,now())')
                 #self.cur.execute('create table puntuaciones(id,puntos,nombre)')
@@ -128,11 +134,30 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps):
 
         if puntos > 25: 
             screen.blit(background2,[0,0])
+            if nivel < 2:
+                nivel += 1
+
         else:
             screen.blit(background,[0,0])
-
+        
         if objnave.grados > 85:
+            smallfont = pygame.font.SysFont('Corbel',35) 
+            text = smallfont.render('volver a jugar' , True , color_blanco) 
             screen.blit(background3,[0,0])
+            screen.fill((90,25,60))
+            mouse = pygame.mouse.get_pos() 
+            # if mouse is hovered on a button it 
+            # changes to lighter shade 
+            if pantalla_x/2 <= mouse[0] <= pantalla_x/2+140 and pantalla_y/2 <= mouse[1] <= pantalla_y/2+40: 
+                pygame.draw.rect(screen,(255,255,255),[pantalla_x/2,pantalla_y/2,240,40]) 
+
+
+            else: 
+                pygame.draw.rect(screen,(0,0,0),[pantalla_x/2,pantalla_y/2,240,40]) 
+            screen.blit(text , (pantalla_x/2+50,pantalla_y/2)) 
+
+            # updates the frames of the game 
+            pygame.display.update() 
 
         if puntos > 100:
             objnave.rect.y = pantalla_y//2-25
@@ -157,7 +182,7 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps):
 
             if objnave.rect.x < 400:
                 screen.blit(objnave.image,objnave.rect)
-            texto_marcador = font.render('Vidas:'+str(vidas)+' Puntos:'+str(puntos),True,color_blanco)
+            texto_marcador = font.render('Vidas:'+str(vidas)+' Puntos:'+str(puntos)+' Nivel: '+str(nivel),True,color_blanco)
             texto_marcador_rect = texto_marcador.get_rect()
             texto_marcador_rect.center = screen_rect.center
             text_x = texto_marcador_rect[0]
@@ -171,6 +196,7 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps):
                 if x.rect.x < 0:
                     x.rect.x = pantalla_x - 80
                     x.rect.y = random.randint(1,300)
+                    puntos += 1
                 if grados > 360:
                     grados = 0
 

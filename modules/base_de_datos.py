@@ -1,4 +1,4 @@
-import pymysql
+
 import sqlite3
 
 
