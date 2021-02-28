@@ -138,8 +138,8 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps,nivel):
             smallfont = pygame.font.SysFont('Corbel',35) 
             text = smallfont.render('volver a jugar' , True , color_blanco)
             text = smallfont.render('reiniciar' , True , color_blanco)  
-            #screen.blit(background3,[0,0])
-            #screen.fill((90,25,60))
+            screen.blit(background3,[0,0])
+            screen.fill((90,25,60))
             mouse = pygame.mouse.get_pos() 
             # if mouse is hovered on a button it 
             # changes to lighter shade 
@@ -191,7 +191,7 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps,nivel):
                 if x.rect.x < 0:
                     x.rect.x = pantalla_x - 80
                     x.rect.y = random.randint(1,300)
-                    puntos += 10
+                    puntos += 5
                 if grados > 360:
                     grados = 0
 
@@ -210,7 +210,7 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps,nivel):
                     if objnave.misilrect.colliderect(x.rect):
                         arrgobj.remove(x)
                         objnave.misilrect.x = pantalla_x + 10
-                        puntos += 15
+                        puntos += 10
                         obj = asteroide.Asteroide((pantalla_x - 80,random.randint(1,300)))
                         arrgobj.append(obj)
                         fps += 1
@@ -226,7 +226,7 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps,nivel):
             sonido_perdiste.set_volume(.1)
             sonido_perdiste.play(loops= 1)
             sonido_inicio.stop()
-            #menu.mainloop(screen)
+            menu.mainloop(screen)
             
         #screen.blit(objasteroide.image,objasteroide.rect)
         #objasteroide.rotar()
