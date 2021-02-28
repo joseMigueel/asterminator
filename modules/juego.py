@@ -88,11 +88,7 @@ menu.add_button('reiniciar',start_game)
 menu.add_button('salir',pygame_menu.events.EXIT)
 
 
-
 def proceso_principal(cantidad,vidas,puntos,grados,ban,fps,nivel):
-
-
-    
 
 
     for x in range(cantidad):
@@ -119,16 +115,8 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps,nivel):
                 sonido_perdiste.stop()
                 sonido_inicio.play()
                 for x in arrgobj:
-                    x.rect.x -= pantalla_x - 80
-            
-
+                    x.rect.x -= pantalla_x - 80          
                 surface = pygame.display.set_mode((600,400))
-
-
-
-
-
-            
 
         rectangulo = objnave.manejador_eventos(event)
 
