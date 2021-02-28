@@ -24,7 +24,7 @@ tema = pygame_menu.themes.THEME_GREEN
 tema.widget_font = pygame_menu.font.FONT_8BIT
 
 menu = pygame_menu.Menu(300,600,'Asterminator',theme=tema)
-menu.add_text_input('nombre: ',default='')
+menu.add_text_input('nombre ',default='aaa', maxchar=3)
 menu.add_button("ver puntuacion",start_p)
 menu.add_button('inicio',start_game)
 menu.add_button('salir',pygame_menu.events.EXIT)
