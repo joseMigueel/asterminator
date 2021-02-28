@@ -27,16 +27,29 @@ pip install -r requirements.txt
 ### Empezar el juego
 Para iniciar el juego escriberemos en la terminal
 ```bash
-python main.py
+python menu.py
 ```
+Menu es un archivo que cuenta con las configuraciones necesarias para poder ejecutar el videojuego.
+
+### Objetivo del juego e instrucciones.
+
+Menu es un archivo que cuenta con las configuraciones necesarias para poder ejecutar el videojuego.
+
 ### Objetivo del juego e instrucciones
-El objetivo del juego es destruir los asteroides sin que colisionen con la nave. La dificultad ira en aumenta una vez desaparezcan los asteroides. 
-Instrucciones:
-- _Disparar misil_:  `ctrl` + `space`
-- _Movimiento_: puedes mover con las flechas o con `w`,`a`,`s`,`d` presionando `crtl`
+
+
+El objetivo del juego es ir esquivando los asteroides y iras sumando puntos para poder ganar, si disparas tambien conseguiras puntos para poder avanzar y aterrizar en el Planeta.
+
+###Instrucciones:
+- _Disparar misil_:  `ctrl` + `space` o `space`(segun la configuaracion del ordenador)
+- _Movimiento_: 
+    - up: `↑` o `ctrl`+`w`  
+    - down: `↓` o `ctrl`+`s`
+
 ### Pre-requisitos :
 - Es necesario tener uns instalación de python3.
 - El juego ha sido desarrollado en una maquina con Linux (ubuntu 20.04)
+
 ## Autores :
 
 * **Jose Miguel Marrero Marrero** - *Estudiante del bootcamp* - [github personal](https://github.com/joseMigueel)
