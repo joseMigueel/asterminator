@@ -14,7 +14,7 @@ grados = 0
 cantidad = 5
 arrgobj = []
 ban = False
-puntos = 95
+puntos = 0
 vidas = 3
 nivel = 1
 
