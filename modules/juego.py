@@ -6,91 +6,32 @@ from modules import base_de_datos
 from modules import planeta
 import random
 import pygame_menu
+from menu import deploy_menu
 
-pygame.init()
-pantalla_x = 600
-pantalla_y = 400
-clock = pygame.time.Clock()
-fps = 15
-grados = 0
-pygame.display.set_caption('ASTERMINATOR')
-size =(pantalla_x,pantalla_y)
-screen = pygame.display.set_mode(size)
-background = pygame.image.load('img//background_tierra.jpg').convert()
-background2 = pygame.image.load('img//background_espacio.jpg').convert()
-background3 = pygame.image.load('img//youwin.jpg').convert()
-#planeta = pygame.image.load('img//background_planeta2.png').convert()
-objnave = nave.Nave(position =(0,pantalla_y//2-25),border_limits=size)
-objasteroide = asteroide.Asteroide((pantalla_x - 80,0))
-objplaneta = planeta.Planeta((600,50))
-cantidad = 5
-arrgobj = []
-ban = False
-puntos = 15
-nivel = 1
-vidas = 3
-color_blanco = (255,255,255)
-font = pygame.font.Font(None,30)
-screen_rect = screen.get_rect()
-#pygame.mixer.music.load('music/background.ogg')
-#pygame.mixer.music.play(-1)
-#pygame.mixer.music.set_volume(.3)
-sonido_inicio = pygame.mixer.Sound('music/background.ogg')
-sonido_perdiste = pygame.mixer.Sound('music/perdiste.ogg')
-sonido_colision = pygame.mixer.Sound('music/explosion.ogg')
-
-
-
-def set_dificultad(value, dificultad):
-    pass
-
-def start_game():
-    
-    pygame.init()
-    pantalla_x = 600
-    pantalla_y = 400
-    clock = pygame.time.Clock()
-    fps = 15
-    grados = 0
-    pygame.display.set_caption('ASTERMINATOR')
-    size =(pantalla_x,pantalla_y)   
-    bscreen = pygame.display.set_mode(size)
-    background = pygame.image.load('img//background_tierra.jpg').convert()
-    background2 = pygame.image.load('img//background_espacio.jpg').convert()
-    background3 = pygame.image.load('img//youwin.jpg').convert()
-    #planeta = pygame.image.load('img//background_planeta2.png').convert()
-    objnave = nave.Nave(position =(0,pantalla_y//2-25),border_limits=size)
-    objasteroide = asteroide.Asteroide((pantalla_x - 80,0))
-    objplaneta = planeta.Planeta((600,50))
-    cantidad = 5
-    arrgobj = []
-    ban = False
-    puntos = 15
-    nivel = 1
-    vidas = 3
-    color_blanco = (255,255,255)
-    font = pygame.font.Font(None,30)
-    screen_rect = screen.get_rect()
-    #pygame.mixer.music.load('music/background.ogg')
-    #pygame.mixer.music.play(-1)
-    #pygame.mixer.music.set_volume(.3)
-    sonido_inicio = pygame.mixer.Sound('music/background.ogg')
-    sonido_perdiste = pygame.mixer.Sound('music/perdiste.ogg')
-    sonido_colision = pygame.mixer.Sound('music/explosion.ogg')
-    #proceso_principal(0,3,5,0,False,15)
-
-
-tema = pygame_menu.themes.THEME_GREEN
-tema.widget_font = pygame_menu.font.FONT_8BIT
-
-menu = pygame_menu.Menu(300,600,'jugador: '+str(puntos)+" pt",theme=tema)
-menu.add_text_input('Cambiar nombre: ',default='')
-menu.add_button('reiniciar',start_game)
-menu.add_button('salir',pygame_menu.events.EXIT)
 
 
 def proceso_principal(cantidad,vidas,puntos,grados,ban,fps,nivel):
 
+    pygame.init()
+    pantalla_x = 600
+    pantalla_y = 400
+    clock = pygame.time.Clock()
+    pygame.display.set_caption('ASTERMINATOR')
+    size =(pantalla_x,pantalla_y)
+    screen = pygame.display.set_mode(size)
+    background = pygame.image.load('img//background_tierra.jpg').convert()
+    background2 = pygame.image.load('img//background_espacio.jpg').convert()
+    background3 = pygame.image.load('img//youwin.jpg').convert()
+    objnave = nave.Nave(position =(0,pantalla_y//2-25),border_limits=size)
+    objasteroide = asteroide.Asteroide((pantalla_x - 80,0))
+    objplaneta = planeta.Planeta((600,50))
+    arrgobj = []
+    color_blanco = (255,255,255)
+    font = pygame.font.Font(None,30)
+    screen_rect = screen.get_rect()
+    sonido_inicio = pygame.mixer.Sound('music/background.ogg')
+    sonido_perdiste = pygame.mixer.Sound('music/perdiste.ogg')
+    sonido_colision = pygame.mixer.Sound('music/explosion.ogg')
 
     for x in range(cantidad):
         objasteroide = asteroide.Asteroide((pantalla_x - 80,random.randint(1,300)))
@@ -98,27 +39,12 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps,nivel):
 
     sonido_inicio.play()
     while True:
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
 
-            
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if pantalla_x/2 <= mouse[0] <= pantalla_x/2+240 and pantalla_y/2 <= mouse[1] <= pantalla_y/2+40:
-                    import menu
-                db = base_de_datos.DB()
-                print('INSERT INTO puntuacion(puntuacion, fecha)VALUES(1,now())')
-                #self.cur.execute('create table puntuaciones(id,puntos,nombre)')
-                datos = (puntos, 'jugador1')
-                db.insert_score(datos)
-                vidas = 3
-                puntos = 0
-                sonido_perdiste.stop()
-                sonido_inicio.play()
-                for x in arrgobj:
-                    x.rect.x -= pantalla_x - 80          
-                surface = pygame.display.set_mode((600,400))
-
+        
         rectangulo = objnave.manejador_eventos(event)
 
         if puntos > 25: 
@@ -130,29 +56,6 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps,nivel):
 
         else:
             screen.blit(background,[0,0])
-        print(objnave.grados)
-            
-                
-        if objnave.grados > 85:
-            
-            smallfont = pygame.font.SysFont('Corbel',35) 
-            text = smallfont.render('volver a jugar' , True , color_blanco)
-            text = smallfont.render('reiniciar' , True , color_blanco)  
-            screen.blit(background3,[0,0])
-            screen.fill((90,25,60))
-            mouse = pygame.mouse.get_pos() 
-            # if mouse is hovered on a button it 
-            # changes to lighter shade 
-            if pantalla_x/2 <= mouse[0] <= pantalla_x/2+140 and pantalla_y/2 <= mouse[1] <= pantalla_y/2+40: 
-                pygame.draw.rect(screen,(255,255,255),[pantalla_x/2,pantalla_y/2,240,40]) 
-
-
-            else: 
-                pygame.draw.rect(screen,(0,0,0),[pantalla_x/2,pantalla_y/2,240,40]) 
-            screen.blit(text , (pantalla_x/2+50,pantalla_y/2)) 
-
-            # updates the frames of the game 
-            pygame.display.update() 
 
         if puntos > 100:
             objnave.rect.y = pantalla_y//2-25
@@ -170,7 +73,21 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps,nivel):
                 if objnave.grados < 90:
                     objnave.grados += 5
                 else:
+                    
+                    pygame.time.delay(3 * 1000) # 1 second == 1000 milliseconds
                     screen.blit(background3,[0,0])
+                    pygame.display.update()
+                    pygame.time.delay(3 * 1000)
+                    
+                    # Guardmos partida
+                    db = base_de_datos.DB()
+                    #print('INSERT INTO puntuacion(puntuacion, fecha)VALUES(1,now())')
+                    #self.cur.execute('create table puntuaciones(id,puntos,nombre)')
+                    datos = (puntos, 'jugador1')
+                    db.insert_score(datos)
+
+
+                    deploy_menu()
                 #objnave.rotar()
         
         if vidas > 0:
@@ -226,7 +143,10 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps,nivel):
             sonido_perdiste.set_volume(.1)
             sonido_perdiste.play(loops= 1)
             sonido_inicio.stop()
-            menu.mainloop(screen)
+            pygame.event.clear()
+            deploy_menu()
+
+            #menu.mainloop(screen)
             
         #screen.blit(objasteroide.image,objasteroide.rect)
         #objasteroide.rotar()
