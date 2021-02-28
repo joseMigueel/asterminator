@@ -26,7 +26,7 @@ objplaneta = planeta.Planeta((600,50))
 cantidad = 5
 arrgobj = []
 ban = False
-puntos = 5
+puntos = 15
 nivel = 1
 vidas = 3
 color_blanco = (255,255,255)
@@ -45,6 +45,7 @@ def set_dificultad(value, dificultad):
     pass
 
 def start_game():
+    
     pygame.init()
     pantalla_x = 600
     pantalla_y = 400
@@ -64,7 +65,7 @@ def start_game():
     cantidad = 5
     arrgobj = []
     ban = False
-    puntos = 5
+    puntos = 15
     nivel = 1
     vidas = 3
     color_blanco = (255,255,255)
@@ -121,18 +122,24 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps,nivel):
         rectangulo = objnave.manejador_eventos(event)
 
         if puntos > 25: 
+            if nivel < 2:
+                nivel += 1
             screen.blit(background2,[0,0])
             if nivel < 2:
                 nivel += 1
 
         else:
             screen.blit(background,[0,0])
-        
+        print(objnave.grados)
+            
+                
         if objnave.grados > 85:
+            
             smallfont = pygame.font.SysFont('Corbel',35) 
-            text = smallfont.render('volver a jugar' , True , color_blanco) 
-            screen.blit(background3,[0,0])
-            screen.fill((90,25,60))
+            text = smallfont.render('volver a jugar' , True , color_blanco)
+            text = smallfont.render('reiniciar' , True , color_blanco)  
+            #screen.blit(background3,[0,0])
+            #screen.fill((90,25,60))
             mouse = pygame.mouse.get_pos() 
             # if mouse is hovered on a button it 
             # changes to lighter shade 
@@ -184,7 +191,7 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps,nivel):
                 if x.rect.x < 0:
                     x.rect.x = pantalla_x - 80
                     x.rect.y = random.randint(1,300)
-                    puntos += 1
+                    puntos += 10
                 if grados > 360:
                     grados = 0
 
@@ -203,7 +210,7 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps,nivel):
                     if objnave.misilrect.colliderect(x.rect):
                         arrgobj.remove(x)
                         objnave.misilrect.x = pantalla_x + 10
-                        puntos += 5
+                        puntos += 15
                         obj = asteroide.Asteroide((pantalla_x - 80,random.randint(1,300)))
                         arrgobj.append(obj)
                         fps += 1
@@ -219,7 +226,7 @@ def proceso_principal(cantidad,vidas,puntos,grados,ban,fps,nivel):
             sonido_perdiste.set_volume(.1)
             sonido_perdiste.play(loops= 1)
             sonido_inicio.stop()
-            menu.mainloop(screen)
+            #menu.mainloop(screen)
             
         #screen.blit(objasteroide.image,objasteroide.rect)
         #objasteroide.rotar()
